@@ -2,7 +2,7 @@
 
 # لیست ادمینتور 
 admin_information = [
-    {"username": "abolfazl", "password": "sanjarani"}
+    {"username": "abolfazl", "password": "sa"}
 ]
 
 #صفحه اول 
@@ -125,7 +125,7 @@ def expenses ():
     
     print("------------expenses managment------------")
     while True:
-        expenses_choice = input('please enter youer choice:\n1-Add expenses\n2-get get expenses\ntype "esc" to exit\n>')
+        expenses_choice = input('please enter youer choice:\n1-Add expenses\n2-get expenses\ntype "esc" to exit\n>')
         expenses_choice = expenses_choice.strip().lower()
         while expenses_choice == '':
             print('\nyour choice cannot be empty!')
@@ -164,14 +164,70 @@ def add_new_admin () :
     print (f'\nnew admin "{user_name}" added successfully :)\n\n')
     return admin_information
 
+#_______________________________________________________________________________________________________
+#memory 
+
+memory = []
+
+#تابع Add memory 
+def add_memory () :
+    '''
+    Docstring for add_memory
+    '''
+    print ('------Add new memory------')
+    name_memory = input ('Please Enter name memory:\n>')
+    timelin = input ('Please Enter the date of the memory :\n>')
+    memory_description = input ('Please Enter Description of the memory:\n>')
+    
+    while name_memory.strip () == '' or timelin.strip () == '' or memory_description.strip () == '' :
+        name_memory = input ('memory name can not be empty \nPlease Enter your memory name\n>')
+        timelin = input ('timelin can not be empty \nPlease Enter timlin memory\n>')
+        memory_description = input ('memor description can not be empity \nPlease Enter your memory description\n>')
+    
+    #سیو کردن در لیست خاطرات 
+    memory.append({
+        'name memory' : name_memory,
+        'timelin' : timelin,
+        'memory description' :memory_description
+    })
+    print(f'new memory "{name_memory}" added successfully \n\n')
+    return memory
+#تابع get memory 
+def get_memory () :
+    '''
+    Docstring for get_memory
+    '''
+    print ('------memory booke------')
+    memory_booke_stored = sorted(memory , key= lambda item : item['timelin'])
+    print (memory_booke_stored)
+
+#تابع دفترخاطرات 
+def memory_booke () :
+    '''
+    Docstring for memory_booke
+    '''
+    print ('-------Memory Booke-------\n')
+    while True :
+        choice_memory = input ('Please enter your choice :\n1-Add new memory\n2-get memory booke\n**for exit enter esc**\n\n>')
+        choice_memory = choice_memory.strip().lower()
+        while choice_memory == '' :
+            choice_memory = input ('Your chice can be empity please enter your chice :\n1-Add new memory\n2-get memory booke\n**for exit enter esc**\n\n>')
+        if choice_memory == 'esc' :
+            break
+        choice_memory_number = int(choice_memory)
+        if choice_memory_number == 1:
+            add_memory()
+        if choice_memory_number == 2:
+            get_memory()    
+
 #داشبورد اولیه
 print (f'------------welcom {user_name}------------\n**enter esc for exit**')
 while True:
-    dashbord_choice = input('\nEnter your choice\n1-To Do List \n2-expenses\n3-add new admintor\n>')
+    dashbord_choice = input('\nEnter your choice\n1-To Do List \n2-expenses\n3-memory booke \n4-add new admintor\n>')
     dashbord_choice = dashbord_choice.strip().lower()
     while dashbord_choice == '':
         print('\nyour choice cannot be empty!')
-        dashbord_choice = input('\nEnter your choice\n1-To Do List \n2-expenses\n3-calcure\n4-add new admintor\n>\ntype "esc" to exit\n>')
+        dashbord_choice = input('\nEnter your choice\n1-To Do List \n2-expenses\n3-memory booke\n4-add new admintor\n>\ntype "esc" to exit\n>')
         dashbord_choice = dashbord_choice.strip().lower()        
     if dashbord_choice == "esc" :
         break
@@ -181,4 +237,6 @@ while True:
     if dashbord_choice_number == 2 :
         expenses ()
     if dashbord_choice_number == 3 :
+        memory_booke()
+    if dashbord_choice_number == 4 :
         add_new_admin()
